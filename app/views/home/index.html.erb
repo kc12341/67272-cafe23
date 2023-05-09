@@ -1,0 +1,18 @@
+<% if current_user %>
+<h3><%= "Welcome, #{current_employee.first_name}." =%></h3>
+<% end %>
+<br/>
+<div class="main_content">
+    <% if current_user && current_user.admin_role? %>
+        <%= render :partial => "home/admin_home" %>
+    <% end %>
+
+    <% if current_user && current_user.manager_role? %>
+        <%= render :partial => "home/manager_home" %>
+    <% end %>
+
+    <% if current_user && current_user.employee_role? %>
+        <%= render :partial => "shifts/upcoming_shifts" %>
+        <%= render :partial => "shifts/past_shifts" %>
+    <% end %>
+</div>

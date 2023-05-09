@@ -1,0 +1,42 @@
+<% if current_user && current_user.admin_role? %>
+    <h4>Inactive Employees at Cafe23</h4>
+<% elsif current_user && current_user.manager_role? %>
+    <h4><%= "Inactive Employees at #{current_employee.current_assignment.store.name}" =%></h4>
+<% end %>
+
+<% if @inactive_employees.empty? && current_user.admin_role? %>
+<h6>There are no inactive employees in the system at this time.</h6>
+<% elsif @inactive_employees.empty? && current_user.manager_role? %>
+<h6><%= "There are no inactive employees at #{current_employee.current_assignment.store.name} at this time." =%></h6>
+<% else %>
+
+    <table class="striped highlight">
+    <thead>
+        <th>Name</th>
+        <th>Current Assignment</th>
+        <th>Phone</th>
+        <th class="align_center">Options</th>
+    </thead>
+    <% for employee in @inactive_employees %>
+        <tr>
+        <td><%= link_to "#{employee.last_name}, #{employee.first_name}", employee_path(employee) %></td>
+        <% if employee.current_assignment.nil? %>
+            <td><%= "n/a" %></td>
+        <% else %>
+            <td><%= "#{employee.current_assignment.store.name}" %></td>
+        <% end %>
+        <td><%= number_to_phone employee.phone %></td>
+        <td class="align_center">
+            <%= link_to edit_employee_path(employee) do %>
+                <i class="material-icons">edit</i>
+            <% end %>
+            &nbsp;&nbsp;&nbsp;&nbsp; 
+            <%= link_to(employee_path(employee), method: :delete, data: { confirm: 'Are you sure you wish to delete this information?' }) do %>
+                <i class="material-icons">delete</i>
+            <% end %>
+        </td>
+        </tr>
+    <% end %>
+    </table>
+    <br />
+<% end %>

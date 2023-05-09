@@ -1,0 +1,9 @@
+<% if current_employee && current_employee.manager_role? %>
+<%= f.input :assignment_id, collection: Assignment.current.chronological.for_store(current_employee.current_assignment.store).map{|o| ["#{o.employee.proper_name}", o.id]}, include_blank: false %>
+<% else %>
+<%= f.input :assignment_id, collection: Assignment.current.chronological.map{|o| ["#{o.employee.proper_name}", o.id]}, include_blank: false %>
+<% end %>
+
+<%= f.input :date, label_html: { class: 'active' } %>
+<%= f.input :start_time, label_html: { class: 'active' } %>
+<%= f.input :end_time, label_html: { class: 'active' } %>

@@ -1,0 +1,33 @@
+<% if @store_payroll.empty? %>
+<h4>"#{@store.name} does not have employees that received a payroll yet."</h4>
+<% else %>
+<h4><%= "Store Payroll for #{@store.name}" %></h4>
+<table class="striped highlight">
+  <thead>
+    <th>Employee</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th>SSN</th>
+    <th>Current Pay Grade</th>
+    <th>Current Rate</th>
+    <th>Hours Worked</th>
+    <th>Money Earned</th>
+  </thead>
+  <% for employee_payroll in @store_payroll %>
+    <tr>
+      <td><%= link_to "#{employee_payroll.employee.proper_name}", employee_path(employee_payroll.employee.proper_name) %></td>
+      <td><%= "#{humanize_date(@range.start_date, :ampm => false)}" %></td>
+      <td><%= "#{humanize_date(@range.end_date, :ampm => false)}" %></td>
+      <td><%= "#{employee_payroll.ssn}" %></td>
+      <td><%= "#{employee_payroll.pay_grade}" %></td>
+      <td><%= "#{employee_payroll.pay_rate}" %></td>
+      <td><%= "#{employee_payroll.hours}" %></td>
+      <td><%= "#{employee_payroll.pay_earned}" %></td>
+        &nbsp;&nbsp;&nbsp;&nbsp; 
+      </td>
+    </tr>
+<% end %>
+</table>
+<br />
+<% end %>
+<p>&nbsp;</p>

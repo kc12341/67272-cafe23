@@ -1,0 +1,37 @@
+<h4>Past Assignments</h4>
+<% if @past_assignments.empty? %>
+<h6>There are no past assignments at this time.</h6>
+<% else %>
+<table class="striped highlight">
+  <thead>
+    <th>Start Date</th>
+    <th>Store</th>
+    <th>Employee</th>
+    <th>Pay Grade</th>
+    <th>Shift Count</th>
+    <th class="align_center">Options</th>
+  </thead>
+
+  <% for assignment in @past_assignments.by_store %>
+    <tr>
+      <td><%= "#{humanize_date(assignment.start_date)[0..5] + humanize_date(assignment.start_date)[8..9]}" %></td>
+      <td><%= "#{assignment.store.name}" %></td>
+      <td><%= "#{assignment.employee.proper_name}" %></td>
+      <td><%= "#{assignment.pay_grade.level}" %></td>
+      <td><%= "#{assignment.shifts.count}" %></td>
+      <td class="align_center">
+        <%= link_to edit_assignment_path(assignment) do %>
+            <i class="material-icons">edit</i>
+        <% end %>
+        &nbsp;&nbsp;&nbsp;&nbsp; 
+        <%= link_to(assignment_path(assignment), method: :delete, data: { confirm: 'Are you sure you wish to delete this information?' }) do %>
+            <i class="material-icons">delete</i>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  <% end %>
+</table>
+<br />
+
+<p>&nbsp;</p>

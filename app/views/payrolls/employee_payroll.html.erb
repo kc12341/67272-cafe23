@@ -1,0 +1,31 @@
+<% if @employee_payroll.nil? %>
+<h4>"#{@employee.proper_name} has not received a payroll yet."</h4>
+<% else %>
+<h4><%= "Employee Payroll for #{@employee.proper_name}" %></h4>
+<table class="striped highlight">
+  <thead>
+    <th>Assignment</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th>SSN</th>
+    <th>Current Pay Grade</th>
+    <th>Current Rate</th>
+    <th>Hours Worked</th>
+    <th>Money Earned</th>
+  </thead>
+  <tr>
+      <td><%= link_to "#{@employee.current_assignment.store.name}", store_path(@employee.current_assignment.store) %></td>
+      <td><%= "#{humanize_date(@range.start_date, :ampm => false)}" %></td>
+      <td><%= "#{humanize_date(@range.end_date, :ampm => false)}" %></td>
+      <td><%= "#{@employee_payroll.ssn}" %></td>
+      <td><%= "#{@employee_payroll.pay_grade}" %></td>
+      <td><%= "#{@employee_payroll.pay_rate}" %></td>
+      <td><%= "#{@employee_payroll.hours}" %></td>
+      <td><%= "#{@employee_payroll.pay_earned}" %></td>
+        &nbsp;&nbsp;&nbsp;&nbsp; 
+      </td>
+    </tr>
+</table>
+<br />
+<% end %>
+<p>&nbsp;</p>

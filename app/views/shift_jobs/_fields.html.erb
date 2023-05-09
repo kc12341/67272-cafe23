@@ -1,0 +1,2 @@
+<%= f.input :shift_id, collection: Shift.past.chronological.map{|o| ["#{o.employee.proper_name}, #{o.date}", o.id]}, include_blank: true %>
+<%= f.input :job_id, collection: Job.active.alphabetical.map{|o| ["#{o.name}", o.id]}, include_blank: true %>

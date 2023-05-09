@@ -1,0 +1,41 @@
+<% if @past_shifts.nil? || @past_shifts.empty? %>
+<h4>You have no completed shifts.</h4>
+<% else %>
+<h4>Completed Shifts</h4>
+<table class="striped highlight">
+  <thead>
+    <% if current_employee && !current_employee.employee_role? %>
+      <th>Employee</td>
+    <% end %>
+    <th>Store</th>
+    <th>Date</th>
+    <th>Start Time</th>
+    <th>End Time</th>
+    <th>Notes</th>
+    <th>Status</th>
+    <% if current_employee && !current_employee.employee_role? %>
+    <th class="align_center">Options</th>
+    <% end %>
+  </thead>
+  <% for shift in @past_shifts %>
+    <tr>
+      <% if current_employee && !current_employee.employee_role? %>
+        <td><%= link_to "#{shift.employee.proper_name}", employee_path(shift.employee) %></td>
+      <% end %>
+      <td><%= link_to "#{shift.store.name}", store_path(shift.store) %></td>
+      <td><%= "#{shift.date}" %></td>
+      <td><%= "#{humanize_time(shift.start_time, :ampm => false)}" %></td>
+      <td><%= "#{humanize_time(shift.end_time, :ampm => false)}" %></td>
+      <td><%= "#{shift.notes}" %></td>
+      <td><%= "#{shift.status}" %></td>
+      <% if current_employee && !current_employee.employee_role? && shift.status == "finished" %>
+      <td><%= link_to "See Jobs", edit_shift_path(shift) %></td>
+      <% end %>
+        &nbsp;&nbsp;&nbsp;&nbsp; 
+      </td>
+    </tr>
+  <% end %>
+</table>
+<br />
+<% end %>
+<p>&nbsp;</p>

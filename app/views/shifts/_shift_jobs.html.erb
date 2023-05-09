@@ -1,0 +1,21 @@
+<h4><%= "Jobs Done by #{@shift.employee.proper_name}" =%></h4>
+<% if @shift.jobs.empty? %>
+<br />
+<h6>There are no jobs associated with this shift.</h6>
+<% else %>
+<table class="striped highlight">
+  <thead>
+    <th>Job Name</th>
+    <th>Description</th>
+  </thead>
+  <% for job in @shift.jobs %>
+    <tr>
+      <td><%= "#{job.name}" %></td>
+      <td><%= "#{job.description}" %></td>
+    </tr>
+  <% end %>
+</table>
+<br />
+<% end %>
+<p>&nbsp;</p>
+

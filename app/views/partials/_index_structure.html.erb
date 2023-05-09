@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="small-8 columns">
+    <!-- primary partial gets displayed here in main div -->
+    <%= render partial: "#{primary}" %>
+    <!-- sometimes we want another partial below -->
+    <% unless secondary.nil? %>
+      <p>&nbsp;</p>
+      <%= render partial: "#{secondary}" %>
+    <% end %>
+    
+  </div>
+  <div class="small-4 columns">
+    <!-- render the sidebar, if it exists -->
+    <%= render partial: "#{sidebar}" unless sidebar.blank? %>
+  </div>
+</div>
+
+<!-- Add a button for new instances of object -->
+<% if (current_employee.admin_role? || (current_employee.manager_role? && (model_name == "shift_job" || model_name == "shift"))) %>
+<%= render :partial => 'partials/add_new_object', locals: {model_name: model_name} %>
+<% end %>
